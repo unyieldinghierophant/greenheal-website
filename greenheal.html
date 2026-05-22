@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Green Heal — Lo verde que sana</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0f3d2e;
+    --leaf:#1f6b46;
+    --moss:#2a8a5a;
+    --cream:#f3efe6;
+    --paper:#faf7ef;
+    --char:#0a1a14;
+    --hot:#e86c25;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--paper);color:var(--ink);font-family:'Fraunces',serif;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+
+  /* ============ NAV ============ */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    display:flex;justify-content:space-between;align-items:center;
+    padding:18px 36px;
+    background:rgba(250,247,239,.85);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid rgba(15,61,46,.08);
+  }
+  .logo{display:flex;align-items:center;gap:10px;font-family:'Caveat Brush',cursive;font-size:28px;color:var(--ink);letter-spacing:.5px}
+  .logo img{height:38px;width:38px;object-fit:cover;border-radius:50%}
+  .nav-links{display:flex;gap:32px;font-family:'DM Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:1.5px}
+  .nav-links a{position:relative;padding:4px 0;transition:opacity .2s}
+  .nav-links a:hover{opacity:.6}
+  .nav-cta{
+    font-family:'DM Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:1.5px;
+    background:var(--ink);color:var(--cream);padding:10px 20px;border-radius:999px;
+    transition:transform .2s, background .2s;
+  }
+  .nav-cta:hover{background:var(--moss);transform:translateY(-1px)}
+
+  /* ============ HERO ============ */
+  .hero{
+    min-height:100vh;position:relative;
+    padding:140px 36px 60px;
+    display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;
+    background:
+      radial-gradient(800px 600px at 90% 10%, rgba(42,138,90,.10), transparent 60%),
+      radial-gradient(600px 400px at 10% 90%, rgba(232,108,37,.06), transparent 60%),
+      var(--paper);
+    overflow:hidden;
+  }
+  .hero-left{position:relative;z-index:2}
+  .eyebrow{
+    font-family:'DM Mono',monospace;font-size:11px;letter-spacing:3px;text-transform:uppercase;
+    color:var(--moss);margin-bottom:24px;display:inline-flex;align-items:center;gap:10px;
+  }
+  .eyebrow::before{content:"";width:24px;height:1px;background:var(--moss)}
+  h1.headline{
+    font-family:'Fraunces',serif;font-weight:300;
+    font-size:clamp(56px,8.5vw,128px);line-height:.92;letter-spacing:-.04em;
+    color:var(--ink);margin-bottom:28px;
+  }
+  h1 .brush{
+    font-family:'Caveat Brush',cursive;font-weight:400;color:var(--leaf);
+    font-size:1.05em;letter-spacing:0;display:inline-block;transform:rotate(-2deg);
+  }
+  h1 em{font-style:italic;font-weight:300;color:var(--moss)}
+  .sub{
+    font-family:'Fraunces',serif;font-weight:300;font-style:italic;
+    font-size:20px;line-height:1.5;max-width:480px;color:var(--ink);opacity:.78;margin-bottom:36px;
+  }
+  .hero-actions{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+  .btn-primary{
+    background:var(--ink);color:var(--cream);
+    padding:16px 28px;border-radius:999px;
+    font-family:'DM Mono',monospace;font-size:12px;letter-spacing:2px;text-transform:uppercase;
+    display:inline-flex;align-items:center;gap:10px;
+    transition:transform .2s, background .2s;
+  }
+  .btn-primary:hover{background:var(--moss);transform:translateY(-2px)}
+  .btn-ghost{
+    color:var(--ink);padding:16px 4px;
+    font-family:'DM Mono',monospace;font-size:12px;letter-spacing:2px;text-transform:uppercase;
+    border-bottom:1px solid var(--ink);
+  }
+
+  /* Hero right: stacked dishes mosaic */
+  .hero-right{position:relative;height:520px}
+  .dish{
+    position:absolute;border-radius:50%;overflow:hidden;
+    box-shadow:0 30px 60px -20px rgba(15,61,46,.35);
+    border:8px solid var(--paper);
+  }
+  .dish img{width:100%;height:100%;object-fit:cover;display:block}
+  .dish-1{width:280px;height:280px;top:0;right:20px;transform:rotate(-4deg);animation:float1 8s ease-in-out infinite}
+  .dish-2{width:200px;height:200px;top:200px;left:0;transform:rotate(6deg);animation:float2 9s ease-in-out infinite}
+  .dish-3{width:180px;height:180px;bottom:0;right:80px;transform:rotate(-8deg);animation:float3 7s ease-in-out infinite}
+  @keyframes float1{0%,100%{transform:rotate(-4deg) translateY(0)}50%{transform:rotate(-4deg) translateY(-12px)}}
+  @keyframes float2{0%,100%{transform:rotate(6deg) translateY(0)}50%{transform:rotate(6deg) translateY(-10px)}}
+  @keyframes float3{0%,100%{transform:rotate(-8deg) translateY(0)}50%{transform:rotate(-8deg) translateY(-14px)}}
+
+  /* scattered scribbles */
+  .scribble{position:absolute;font-family:'Caveat Brush',cursive;color:var(--moss);opacity:.5;pointer-events:none}
+  .s1{top:90px;left:46%;font-size:22px;transform:rotate(-8deg)}
+  .s2{bottom:80px;left:42%;font-size:18px;transform:rotate(4deg);color:var(--hot);opacity:.6}
+
+  /* ============ MARQUEE ============ */
+  .marquee{
+    background:var(--ink);color:var(--cream);
+    padding:18px 0;overflow:hidden;border-top:1px solid rgba(243,239,230,.1);border-bottom:1px solid rgba(243,239,230,.1);
+  }
+  .marquee-track{display:flex;gap:48px;white-space:nowrap;animation:scroll 30s linear infinite;font-family:'Caveat Brush',cursive;font-size:32px}
+  .marquee-track span{display:inline-flex;align-items:center;gap:48px}
+  .marquee-track span::after{content:"✦";color:var(--moss);font-size:20px}
+  @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  /* ============ SECTION FRAME ============ */
+  section.block{padding:120px 36px;position:relative}
+  .section-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:64px;gap:40px;flex-wrap:wrap}
+  .section-title{
+    font-family:'Fraunces',serif;font-weight:300;font-size:clamp(40px,5vw,72px);
+    line-height:1;letter-spacing:-.03em;
+  }
+  .section-title em{font-family:'Caveat Brush',cursive;color:var(--leaf);font-style:normal}
+  .section-meta{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;opacity:.5;max-width:280px;text-align:right;line-height:1.6}
+
+  /* ============ MENU GRID ============ */
+  .menu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(15,61,46,.12);border-top:1px solid rgba(15,61,46,.12);border-bottom:1px solid rgba(15,61,46,.12)}
+  .menu-item{background:var(--paper);padding:36px 28px;transition:background .3s;cursor:pointer}
+  .menu-item:hover{background:var(--cream)}
+  .menu-item .num{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;opacity:.4;margin-bottom:16px;display:block}
+  .menu-item h3{font-family:'Fraunces',serif;font-weight:400;font-size:28px;letter-spacing:-.02em;margin-bottom:10px}
+  .menu-item p{font-family:'Fraunces',serif;font-weight:300;font-size:14px;line-height:1.5;opacity:.7;margin-bottom:20px;min-height:60px}
+  .menu-item .price{font-family:'DM Mono',monospace;font-size:14px;font-weight:500;color:var(--leaf)}
+
+  /* ============ CATERING ============ */
+  .catering{background:var(--ink);color:var(--cream);padding:120px 36px;position:relative;overflow:hidden}
+  .catering .section-title{color:var(--cream)}
+  .catering .section-title em{color:#7dd3a1}
+  .catering .section-meta{color:rgba(243,239,230,.5)}
+  .cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .cat-card{
+    border:1px solid rgba(243,239,230,.15);padding:32px;border-radius:4px;
+    transition:background .3s,transform .3s;
+  }
+  .cat-card:hover{background:rgba(243,239,230,.04);transform:translateY(-4px)}
+  .cat-card h4{font-family:'Caveat Brush',cursive;font-size:32px;color:#7dd3a1;margin-bottom:18px}
+  .cat-card ul{list-style:none;font-family:'Fraunces',serif;font-weight:300;font-size:15px;line-height:1.9;opacity:.85}
+  .cat-card ul li::before{content:"→ ";color:#7dd3a1;font-family:'DM Mono',monospace;font-size:12px}
+
+  /* ============ ABOUT STRIP ============ */
+  .about{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;padding:140px 36px;background:var(--cream)}
+  .about-text h2{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(36px,4.5vw,64px);line-height:1.05;letter-spacing:-.02em;margin-bottom:28px}
+  .about-text h2 em{font-family:'Caveat Brush',cursive;color:var(--leaf);font-style:normal;display:inline-block;transform:rotate(-1deg)}
+  .about-text p{font-family:'Fraunces',serif;font-weight:300;font-size:18px;line-height:1.7;opacity:.78;margin-bottom:20px}
+  .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:40px}
+  .stat{border-top:1px solid var(--ink);padding-top:16px}
+  .stat strong{font-family:'Fraunces',serif;font-weight:300;font-size:48px;letter-spacing:-.03em;display:block;line-height:1}
+  .stat span{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;opacity:.6}
+  .about-visual{position:relative;height:520px}
+  .about-visual .dish{position:absolute}
+  .av-1{width:320px;height:320px;top:0;left:40px;transform:rotate(-5deg)}
+  .av-2{width:240px;height:240px;bottom:20px;right:0;transform:rotate(6deg)}
+  .av-tape{
+    position:absolute;top:-10px;left:80px;
+    background:var(--hot);color:var(--cream);
+    font-family:'Caveat Brush',cursive;font-size:24px;
+    padding:8px 18px;transform:rotate(-4deg);z-index:5;
+    box-shadow:0 6px 18px -6px rgba(0,0,0,.25);
+  }
+
+  /* ============ FOOTER ============ */
+  footer{background:var(--char);color:var(--cream);padding:80px 36px 32px}
+  .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;margin-bottom:60px}
+  .foot-grid h5{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;opacity:.5;margin-bottom:18px}
+  .foot-grid p,.foot-grid li{font-family:'Fraunces',serif;font-weight:300;font-size:15px;line-height:1.8;opacity:.85}
+  .foot-grid ul{list-style:none}
+  .foot-logo{display:flex;align-items:center;gap:14px;font-family:'Caveat Brush',cursive;font-size:48px;line-height:1;color:#7dd3a1;margin-bottom:20px}
+  .foot-logo img{height:56px;width:56px;object-fit:cover;border-radius:50%}
+  .foot-tag{font-family:'Fraunces',serif;font-style:italic;font-weight:300;font-size:20px;max-width:320px;opacity:.7}
+  .foot-bottom{border-top:1px solid rgba(243,239,230,.1);padding-top:24px;display:flex;justify-content:space-between;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;opacity:.5}
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 900px){
+    .hero{grid-template-columns:1fr;padding-top:120px}
+    .hero-right{height:400px;margin-top:20px}
+    .menu-grid{grid-template-columns:1fr}
+    .cat-grid{grid-template-columns:1fr}
+    .about{grid-template-columns:1fr;padding:80px 24px}
+    .about-visual{height:380px}
+    .foot-grid{grid-template-columns:1fr 1fr;gap:32px}
+    .nav-links{display:none}
+    section.block{padding:80px 24px}
+    .catering{padding:80px 24px}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo"><img src="../Downloads/Green%20Heal%20(%40greenheal.mx)%20%E2%80%A2%20Instagram%20photos%20and%20videos/imgi_1_497181003_17845915737475771_5139586802690715562_n.jpg" alt="Green Heal"/>Green Heal</div>
+  <div class="nav-links">
+    <a href="#menu">Menú</a>
+    <a href="#catering">Catering</a>
+    <a href="#about">Nosotros</a>
+    <a href="#visit">Visítanos</a>
+  </div>
+  <a href="#order" class="nav-cta">Ordenar</a>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-left">
+<h1 class="headline">
+      Lo <span class="brush">verde</span><br/>
+      que <em>sana</em>.
+    </h1>
+    <p class="sub">
+      Desayunos, comidas y bebidas hechos con ingredientes orgánicos y de temporada. Servido todo el día, sin compromisos en sabor.
+    </p>
+    <div class="hero-actions">
+      <a href="#menu" class="btn-primary">Ver el menú →</a>
+      <a href="#order" class="btn-ghost">Ordenar a domicilio</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="dish dish-1"><img src="../Downloads/Green%20Heal%20(%40greenheal.mx)%20%E2%80%A2%20Instagram%20photos%20and%20videos/imgi_8_702557254_17890111188475771_3720059810682586052_n.jpg" alt=""/></div>
+    <div class="dish dish-2"><img src="../Downloads/Green%20Heal%20(%40greenheal.mx)%20%E2%80%A2%20Instagram%20photos%20and%20videos/imgi_12_670622947_26328585516813533_4646070994045104532_n.jpg" alt=""/></div>
+    <div class="dish dish-3"><img src="../Downloads/Green%20Heal%20(%40greenheal.mx)%20%E2%80%A2%20Instagram%20photos%20and%20videos/imgi_21_600899331_17871562134475771_8831691701736791457_n.jpg" alt=""/></div>
+    <span class="scribble s1">¡fresco hoy!</span>
+    <span class="scribble s2">~ orgánico ~</span>
+  </div>
+</header>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span>Toast Verde</span><span>Acai Bowl</span><span>Chilaquiles</span><span>Green Heal Smoothie</span><span>Poke Bowl</span><span>Peachy Prosciutto</span><span>Hot Cakes de Blueberry</span><span>Iced Matcha</span>
+    <span>Toast Verde</span><span>Acai Bowl</span><span>Chilaquiles</span><span>Green Heal Smoothie</span><span>Poke Bowl</span><span>Peachy Prosciutto</span><span>Hot Cakes de Blueberry</span><span>Iced Matcha</span>
+  </div>
+</div>
+
+<!-- MENU -->
+<section class="block" id="menu">
+  <div class="section-head">
+    <h2 class="section-title">Lo que se <em>cocina</em><br/>todo el día.</h2>
+    <div class="section-meta">All day breakfast · lunch · dinner — los favoritos de la casa</div>
+  </div>
+
+  <div class="menu-grid">
+    <div class="menu-item">
+      <span class="num">01 — Desayuno</span>
+      <h3>Toast Verde</h3>
+      <p>Pan de masa madre, aguacate, jitomates cherry, pesto y queso feta.</p>
+      <span class="price">$140 MXN</span>
+    </div>
+    <div class="menu-item">
+      <span class="num">02 — Desayuno</span>
+      <h3>Acai Bowl</h3>
+      <p>Base de açaí con plátano y frutos rojos, granola artesanal, crema de cacahuate o almendra.</p>
+      <span class="price">$190 MXN</span>
+    </div>
+    <div class="menu-item">
+      <span class="num">03 — Desayuno</span>
+      <h3>Chilaquiles</h3>
+      <p>Tortilla horneada, frijoles, crema, queso cotija, cebolla y salsa verde o roja.</p>
+      <span class="price">$150 MXN</span>
+    </div>
+    <div class="menu-item">
+      <span class="num">04 — Bowl</span>
+      <h3>Poke Bowl</h3>
+      <p>Arroz salvaje, mayonesa chipotle, mango, pepino, zanahoria encurtida, aguacate. Atún o salmón.</p>
+      <span class="price">$280 MXN</span>
+    </div>
+    <div class="menu-item">
+      <span class="num">05 — Ensalada</span>
+      <h3>Peachy Prosciutto</h3>
+      <p>Hojas verdes, prosciutto, durazno, queso de cabra, palanqueta de nuez, reducción balsámica.</p>
+      <span class="price">$240 MXN</span>
+    </div>
+    <div class="menu-item">
+      <span class="num">06 — Smoothie</span>
+      <h3>Green Heal</h3>
+      <p>Plátano, crema de almendras, proteína de vainilla, espinaca, café, dátil y leche de almendras.</p>
+      <span class="price">$160 MXN</span>
+    </div>
+  </div>
+</section>
+
+<!-- CATERING -->
+<section class="catering" id="catering">
+  <div class="section-head">
+    <h2 class="section-title">Llevamos <em>Green Heal</em><br/>a tu evento.</h2>
+    <div class="section-meta" style="color:rgba(243,239,230,.5)">Catering corporativo, brunches, juntas y celebraciones — entregamos cajas individuales o servicio para grupos</div>
+  </div>
+
+  <div class="cat-grid">
+    <div class="cat-card">
+      <h4>Breakfast Box</h4>
+      <ul>
+        <li>Toast verde y PB</li>
+        <li>Plato de yoghurt con frutas</li>
+        <li>Pan de temporada</li>
+        <li>Jugo verde detox o naranja</li>
+        <li>Café americano</li>
+      </ul>
+    </div>
+    <div class="cat-card">
+      <h4>Brunch Box</h4>
+      <ul>
+        <li>Chilaquiles</li>
+        <li>Huevos al gusto</li>
+        <li>Toast verde o salmón ahumado</li>
+        <li>Bowl de frutas al centro</li>
+        <li>Café o té</li>
+      </ul>
+    </div>
+    <div class="cat-card">
+      <h4>Lunch Box</h4>
+      <ul>
+        <li>Ensalada o sándwich a elegir</li>
+        <li>Agua fresca</li>
+        <li>Galleta Green Heal o pan de temporada</li>
+      </ul>
+    </div>
+    <div class="cat-card">
+      <h4>The Half &amp; Half</h4>
+      <ul>
+        <li>Medio sándwich a elegir</li>
+        <li>Media ensalada a elegir</li>
+        <li>Agua fresca</li>
+      </ul>
+    </div>
+    <div class="cat-card">
+      <h4>Sandwich Box</h4>
+      <ul>
+        <li>Sándwich individual a elegir</li>
+        <li>Acompañado de chips</li>
+      </ul>
+    </div>
+    <div class="cat-card">
+      <h4>Smoothie Party</h4>
+      <ul>
+        <li>Smoothies a elegir</li>
+        <li>Jugo verde detox o naranja</li>
+        <li>Shots de cúrcuma y jengibre</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-text">
+    <h2>Comida <em>consciente</em>,<br/>sabor sin compromiso.</h2>
+    <p>
+      Green Heal nació en Providencia con una idea sencilla: que comer bien no tendría que sentirse como un sacrificio. Cada platillo se prepara con ingredientes frescos, orgánicos y de temporada — de productores locales siempre que sea posible.
+    </p>
+    <p>
+      Servimos desayunos todo el día, comidas para llevar, catering para oficinas y eventos, y bebidas pensadas para acompañar tu mañana o cerrar tu tarde.
+    </p>
+    <div class="stats">
+      <div class="stat"><strong>4.5</strong><span>★ Rating Google</span></div>
+      <div class="stat"><strong>+50</strong><span>Platillos en menú</span></div>
+      <div class="stat"><strong>8:30am</strong><span>Abrimos lunes a viernes</span></div>
+      <div class="stat"><strong>100%</strong><span>Orgánico y de temporada</span></div>
+    </div>
+  </div>
+  <div class="about-visual">
+    <div class="av-tape">lo verde que sana</div>
+    <div class="dish av-1"><img src="../Downloads/Green%20Heal%20(%40greenheal.mx)%20%E2%80%A2%20Instagram%20photos%20and%20videos/imgi_30_581779305_944621781851018_9168877463373281633_n.jpg" alt=""/></div>
+    <div class="dish av-2"><img src="../Downloads/Green%20Heal%20(%40greenheal.mx)%20%E2%80%A2%20Instagram%20photos%20and%20videos/imgi_17_619203340_17874780591475771_1298688171618350145_n.jpg" alt=""/></div>
+  </div>
+</section>
+
+<!-- FOOTER / VISIT -->
+<footer id="visit">
+  <div class="foot-grid">
+    <div>
+      <div class="foot-logo"><img src="../Downloads/Green%20Heal%20(%40greenheal.mx)%20%E2%80%A2%20Instagram%20photos%20and%20videos/imgi_1_497181003_17845915737475771_5139586802690715562_n.jpg" alt="Green Heal"/>Green Heal</div>
+      <p class="foot-tag">Lo verde que sana. Desayunos, comidas y bebidas todo el día en Providencia.</p>
+    </div>
+    <div>
+      <h5>Visítanos</h5>
+      <p>Calle Ottawa 1416<br/>Local 1, Providencia<br/>44630 Guadalajara, Jal.</p>
+    </div>
+    <div>
+      <h5>Horario</h5>
+      <p>Lun – Vie<br/>8:30 AM — 8:30 PM</p>
+      <p style="margin-top:12px">Sáb – Dom<br/>9:00 AM — 4:00 PM</p>
+    </div>
+    <div>
+      <h5>Síguenos</h5>
+      <ul>
+        <li><a href="https://instagram.com/greenheal.mx">@greenheal.mx</a></li>
+        <li><a href="#">Uber Eats</a></li>
+        <li><a href="#">DiDi Food</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 Green Heal</span>
+    <span>Hecho con ♥ en Guadalajara</span>
+  </div>
+</footer>
+
+</body>
+</html>
